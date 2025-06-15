@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 API/appsettings.json
 API/activity_app.db
 API/activity_app.db-shm
+API/activity_app.db-wal
