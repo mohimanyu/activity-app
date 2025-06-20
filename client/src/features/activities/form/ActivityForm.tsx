@@ -1,14 +1,13 @@
 import { Box, Paper, Typography, TextField, Button } from "@mui/material";
 import type { FormEvent } from "react";
 import { useActivities } from "../../../lib/hooks/useActivities";
+import { useNavigate, useParams } from "react-router";
 
-type Props = {
-    closeForm: () => void;
-    activity?: Activity;
-};
-
-export default function ActivityForm({ closeForm, activity }: Props) {
-    const { updateActivity, createActivity } = useActivities();
+export default function ActivityForm() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const { updateActivity, createActivity, activity, isLoadingActivity } =
+        useActivities(id);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -22,17 +21,27 @@ export default function ActivityForm({ closeForm, activity }: Props) {
         if (activity) {
             data.id = activity.id;
             await updateActivity.mutateAsync(data as unknown as Activity);
-            closeForm();
+            navigate(`/activities/${id}`);
         } else {
-            await createActivity.mutateAsync(data as unknown as Activity);
-            closeForm();
+            createActivity.mutate(data as unknown as Activity, {
+                onSuccess: (id) => {
+                    navigate(`/activities/${id}`);
+                },
+            });
         }
     };
+
+    const handleCancel = () => {
+        if (activity) navigate(`/activities/${id}`);
+        else navigate("/activities");
+    };
+
+    if (isLoadingActivity) return <Typography>Loading...</Typography>;
 
     return (
         <Paper sx={{ borderRadius: 3, p: 3 }}>
             <Typography variant="h5" gutterBottom color="primary">
-                Create Activity
+                {activity ? "Edit" : "Create"} Activity
             </Typography>
             <Box
                 component="form"
@@ -85,7 +94,7 @@ export default function ActivityForm({ closeForm, activity }: Props) {
                     defaultValue={activity?.venue}
                 />
                 <Box sx={{ display: "flex", justifyContent: "end", gap: 2 }}>
-                    <Button color="inherit" onClick={closeForm}>
+                    <Button color="inherit" onClick={handleCancel}>
                         Cancel
                     </Button>
                     <Button
