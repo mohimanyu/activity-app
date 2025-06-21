@@ -13,7 +13,13 @@ import MenuItemLink from "../shared/components/MenuItemLink";
 export default function NavBar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar
+                position="static"
+                sx={{
+                    background:
+                        "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%);",
+                }}
+            >
                 <Container maxWidth="xl">
                     <Toolbar
                         sx={{
