@@ -18,7 +18,7 @@ public class CreateActivity
         {
             context.Activities.Add(request.Activity);
 
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
 
             return request.Activity.Id;
         }
