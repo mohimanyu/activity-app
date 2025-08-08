@@ -3,6 +3,7 @@ using Application.Activities.DTOs;
 using Application.Activities.Queries;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 
@@ -12,6 +13,7 @@ namespace API.Controllers
     [ApiController]
     public class ActivitiesController : BaseApiController
     {
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<Activity>>> GetActivities()
         {

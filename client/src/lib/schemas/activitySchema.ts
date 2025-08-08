@@ -6,10 +6,12 @@ const preprocessString = (val: unknown) =>
 const preprocessNumber = (val: unknown) =>
     val === "" || val === undefined || val === null ? NaN : val;
 
-const requiredString = (fieldName: string) =>
+const requiredString = (fieldName: string, isRequired = true) =>
     z.preprocess(
         preprocessString,
-        z.string().min(1, { message: `${fieldName} is required` })
+        isRequired
+            ? z.string().min(1, { message: `${fieldName} is required` })
+            : z.string().optional()
     );
 
 const requiredNumber = (fieldName: string) =>
@@ -27,9 +29,9 @@ export const activitySchema = z.object({
     date: z.coerce.date({ message: "Date is required" }),
     location: z.object({
         venue: requiredString("Venue"),
-        city: z.preprocess(preprocessString, z.string().optional()),
-        latitude: requiredString("Latitude"),
-        longitude: requiredString("Longitude"),
+        city: requiredString("City", false),
+        latitude: requiredNumber("Latitude"),
+        longitude: requiredNumber("Longitude"),
     }),
 });
 

@@ -70,8 +70,8 @@ export default function LocationInput<T extends FieldValues>(props: Props<T>) {
             location.address?.town ||
             location.address?.village;
         const venue = location.display_name;
-        const latitude = location.lat;
-        const longitude = location.lon;
+        const latitude = +location.lat;
+        const longitude = +location.lon;
 
         setInputValue(venue);
         field.onChange({ city, venue, latitude, longitude });
