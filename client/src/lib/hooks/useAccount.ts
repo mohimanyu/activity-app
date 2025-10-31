@@ -19,6 +19,9 @@ export const useAccount = () => {
                 queryKey: ["user"],
             });
         },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
+        },
     });
 
     const registerUser = useMutation({
@@ -28,6 +31,9 @@ export const useAccount = () => {
         onSuccess: () => {
             toast.success("Register successful - you can now login");
             navigate("/login");
+        },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
         },
     });
 
@@ -39,6 +45,9 @@ export const useAccount = () => {
             queryClient.removeQueries({ queryKey: ["user"] });
             queryClient.removeQueries({ queryKey: ["activities"] });
             navigate("/");
+        },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
         },
     });
 

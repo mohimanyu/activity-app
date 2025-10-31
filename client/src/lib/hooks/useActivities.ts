@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
 import { useLocation } from "react-router";
 import { useAccount } from "./useAccount";
+import { toast } from "react-toastify";
 
 export const useActivities = (id?: string) => {
     const queryClient = useQueryClient();
@@ -35,6 +36,9 @@ export const useActivities = (id?: string) => {
                 queryKey: ["activities"],
             });
         },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
+        },
     });
 
     const createActivity = useMutation({
@@ -47,6 +51,9 @@ export const useActivities = (id?: string) => {
                 queryKey: ["activities"],
             });
         },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
+        },
     });
 
     const deleteActivity = useMutation({
@@ -57,6 +64,9 @@ export const useActivities = (id?: string) => {
             await queryClient.invalidateQueries({
                 queryKey: ["activities"],
             });
+        },
+        onError: (error) => {
+            toast.error(error?.message || "An error occurred");
         },
     });
 

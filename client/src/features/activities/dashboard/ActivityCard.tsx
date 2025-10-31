@@ -20,7 +20,7 @@ type Props = {
 export default function ActivityCard({ activity }: Props) {
     const isHost = false;
     const isGoing = false;
-    const label = isHost ? "you are hosting" : "You are going";
+    const label = isHost ? "You are hosting" : "You are going";
     const isCancelled = false;
     const color = isHost ? "secondary" : isGoing ? "warning" : "default";
 
