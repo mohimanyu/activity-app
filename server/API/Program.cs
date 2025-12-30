@@ -18,18 +18,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers(option =>
 {
-    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    option.Filters.Add(new AuthorizeFilter(policy));
+  var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+  option.Filters.Add(new AuthorizeFilter(policy));
 });
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+  options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddCors();
 builder.Services.AddMediatR(x =>
 {
-    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
-    x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+  x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
+  x.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
@@ -37,7 +37,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
-    opt.User.RequireUniqueEmail = true;
+  opt.User.RequireUniqueEmail = true;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
@@ -45,7 +45,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-    .WithOrigins("http://localhost:3000", "https://localhost:3000"));
+  .WithOrigins("http://localhost:3000", "https://localhost:3000"));
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -58,15 +58,15 @@ var services = scope.ServiceProvider;
 
 try
 {
-    var context = services.GetRequiredService<AppDbContext>();
-    var userManager = services.GetRequiredService<UserManager<User>>();
-    await context.Database.MigrateAsync();
-    await DbInitializer.SeedData(context, userManager);
+  var context = services.GetRequiredService<AppDbContext>();
+  var userManager = services.GetRequiredService<UserManager<User>>();
+  await context.Database.MigrateAsync();
+  await DbInitializer.SeedData(context, userManager);
 }
 catch (Exception ex)
 {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred during migrations");
+  var logger = services.GetRequiredService<ILogger<Program>>();
+  logger.LogError(ex, "An error occurred during migrations");
 }
 
 app.Run();

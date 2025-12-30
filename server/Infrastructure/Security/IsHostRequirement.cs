@@ -13,13 +13,13 @@ public class IsHostRequirement : IAuthorizationRequirement
 
 public class IsHostRequirementHandler(AppDbContext dbContext, IHttpContextAccessor httpContextAccessor) : AuthorizationHandler<IsHostRequirement>
 {
-    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, IsHostRequirement requirement)
-    {
-        var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == null) return;
+  protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, IsHostRequirement requirement)
+  {
+    var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null) return;
 
-        var httpContext = httpContextAccessor.HttpContext;
+    var httpContext = httpContextAccessor.HttpContext;
 
 
-    }
+  }
 }
