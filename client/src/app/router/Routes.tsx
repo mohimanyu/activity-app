@@ -13,33 +13,33 @@ import RequireAuth from "./RequireAuth";
 import RegisterForm from "../../features/account/RegisterForm";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        element: <RequireAuth />,
         children: [
-            {
-                element: <RequireAuth />,
-                children: [
-                    { path: "/activities", element: <ActivityDashboard /> },
-                    {
-                        path: "/activities/:id",
-                        element: <ActivityDetailsPage />,
-                    },
-                    {
-                        path: "/create-activity",
-                        element: <ActivityForm key="create" />,
-                    },
-                    { path: "/manage/:id", element: <ActivityForm /> },
-                ],
-            },
-            { path: "", element: <HomePage /> },
-            { path: "/counter", element: <Counter /> },
-            { path: "/errors", element: <TestErrors /> },
-            { path: "/not-found", element: <NotFound /> },
-            { path: "/server-error", element: <ServerError /> },
-            { path: "/login", element: <LoginForm /> },
-            { path: "/register", element: <RegisterForm /> },
-            { path: "*", element: <Navigate replace to="/not-found" /> },
+          { path: "/activities", element: <ActivityDashboard /> },
+          {
+            path: "/activities/:id",
+            element: <ActivityDetailsPage />,
+          },
+          {
+            path: "/create-activity",
+            element: <ActivityForm key="create" />,
+          },
+          { path: "/manage/:id", element: <ActivityForm /> },
         ],
-    },
+      },
+      { path: "", element: <HomePage /> },
+      { path: "/counter", element: <Counter /> },
+      { path: "/errors", element: <TestErrors /> },
+      { path: "/not-found", element: <NotFound /> },
+      { path: "/server-error", element: <ServerError /> },
+      { path: "/login", element: <LoginForm /> },
+      { path: "/register", element: <RegisterForm /> },
+      { path: "*", element: <Navigate replace to="/not-found" /> },
+    ],
+  },
 ]);

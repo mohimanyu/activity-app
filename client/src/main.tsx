@@ -18,19 +18,19 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <StoreContext.Provider value={store}>
-                <QueryClientProvider client={queryClient}>
-                    <ReactQueryDevtools />
-                    <ToastContainer
-                        position="bottom-right"
-                        hideProgressBar
-                        theme="colored"
-                    />
-                    <RouterProvider router={router} />
-                </QueryClientProvider>
-            </StoreContext.Provider>
-        </LocalizationProvider>
-    </StrictMode>
+  <StrictMode>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <StoreContext.Provider value={store}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools />
+          <ToastContainer
+            position="bottom-right"
+            hideProgressBar
+            theme="colored"
+          />
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </StoreContext.Provider>
+    </LocalizationProvider>
+  </StrictMode>
 );

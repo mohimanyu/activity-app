@@ -3,13 +3,12 @@ import { useAccount } from "../../lib/hooks/useAccount";
 import { Typography } from "@mui/material";
 
 export default function RequireAuth() {
-    const location = useLocation();
-    const { currentUser, loadingUserInfo } = useAccount();
+  const location = useLocation();
+  const { currentUser, loadingUserInfo } = useAccount();
 
-    if (loadingUserInfo) return <Typography>Loading...</Typography>;
+  if (loadingUserInfo) return <Typography>Loading...</Typography>;
 
-    if (!currentUser)
-        return <Navigate to="/login" state={{ from: location }} />;
+  if (!currentUser) return <Navigate to="/login" state={{ from: location }} />;
 
-    return <Outlet />;
+  return <Outlet />;
 }
