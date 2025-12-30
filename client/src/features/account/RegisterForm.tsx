@@ -20,6 +20,7 @@ export default function RegisterForm() {
   } = useForm<RegisterSchema>({
     mode: "onTouched",
     resolver: zodResolver(registerSchema),
+    defaultValues: { email: "", displayName: "", password: "" },
   });
 
   const onSubmit = async (data: RegisterSchema) => {
